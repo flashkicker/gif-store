@@ -4,6 +4,17 @@
       "title": "First",
       "description": "My stream",
       "id": 1
+    },
+    {
+      "title": "Second stream",
+      "description": "This one's good",
+      "id": 2
+    },
+    {
+      "title": "Third",
+      "description": "Stream with user id",
+      "userId": "102026747646429304788",
+      "id": 3
     }
   ]
 }
