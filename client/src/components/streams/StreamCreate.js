@@ -1,8 +1,10 @@
 import React, { Component } from "react"
 import { Field, reduxForm } from "redux-form"
+import { connect } from "react-redux"
+import { createStream } from "../../actions"
 
 class StreamCreate extends Component {
-	renderError = (metaProps) => {
+	renderError = metaProps => {
 		const { error, touched } = metaProps
 
 		if (touched && error) {
@@ -17,7 +19,7 @@ class StreamCreate extends Component {
 	renderInput = formProps => {
 		const { input, label, meta } = formProps
 		const { error, touched } = meta
-		const className = `field ${error && touched ? "error" : ''}`
+		const className = `field ${error && touched ? "error" : ""}`
 		return (
 			<div className={className}>
 				<label>{label}</label>
@@ -28,7 +30,7 @@ class StreamCreate extends Component {
 	}
 
 	onSubmit = formValues => {
-		// console.log(formValues)
+		this.props.createStream(formValues)
 	}
 
 	render() {
@@ -63,7 +65,15 @@ const validate = formValues => {
 	return errors
 }
 
-export default reduxForm({
+// this is done because we want to use both redux-form and redux-thunk
+const formWrapped = reduxForm({
 	form: "streamCreate",
 	validate: validate
 })(StreamCreate)
+
+export default connect(
+	null,
+	{
+		createStream
+	}
+)(formWrapped)
