@@ -13,7 +13,9 @@ class StreamList extends Component {
 		if (stream.userId === this.props.currentUserId) {
 			return (
 				<div className="right floated content">
-					<button className="ui button primary">EDIT</button>
+					<Link className="ui button primary" to={`/streams/edit/${stream.id}`}>
+						EDIT
+					</Link>
 					<button className="ui button negative">DELETE</button>
 				</div>
 			)
@@ -39,7 +41,7 @@ class StreamList extends Component {
 	renderCreateButton() {
 		if (this.props.isSignedIn) {
 			return (
-				<div style={{ textAlign: 'right' }}>
+				<div style={{ textAlign: "right" }}>
 					<Link to="/streams/new" className="ui button primary">
 						Create Stream
 					</Link>
