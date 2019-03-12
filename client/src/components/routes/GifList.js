@@ -2,23 +2,23 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 
-import { fetchStreams } from "../../actions"
+import { fetchGifs } from "../../actions"
 
-class StreamList extends Component {
+class GifList extends Component {
 	componentDidMount() {
-		this.props.fetchStreams()
+		this.props.fetchGifs()
 	}
 
-	renderAdmin(stream) {
-		if (stream.userId === this.props.currentUserId) {
+	renderAdmin(gif) {
+		if (gif.userId === this.props.currentUserId) {
 			return (
 				<div className="right floated content">
-					<Link className="ui button primary" to={`/streams/edit/${stream.id}`}>
+					<Link className="ui button primary" to={`/gif/edit/${gif.id}`}>
 						EDIT
 					</Link>
 					<Link
 						className="ui button negative"
-						to={`/streams/delete/${stream.id}`}
+						to={`/gif/delete/${gif.id}`}
 					>
 						DELETE
 					</Link>
@@ -28,14 +28,14 @@ class StreamList extends Component {
 	}
 
 	renderList() {
-		return this.props.streams.map(stream => {
-			const { id, title, description } = stream
+		return this.props.gifs.map(gif => {
+			const { id, title, description } = gif
 			return (
 				<div className="item" key={id}>
-					{this.renderAdmin(stream)}
+					{this.renderAdmin(gif)}
 					<i className="large middle aligned icon camera" />
 					<div className="content">
-						<Link to={`/streams/show/${id}`} className="header">{title}</Link>
+						<Link to={`/gif/show/${id}`} className="header">{title}</Link>
 						<div className="description">{description}</div>
 					</div>
 				</div>
@@ -47,8 +47,8 @@ class StreamList extends Component {
 		if (this.props.isSignedIn) {
 			return (
 				<div style={{ textAlign: "right" }}>
-					<Link to="/streams/new" className="ui button primary">
-						Create Stream
+					<Link to="/gif/new" className="ui button primary">
+						Create Gif
 					</Link>
 				</div>
 			)
@@ -58,7 +58,7 @@ class StreamList extends Component {
 	render() {
 		return (
 			<div>
-				<h2>Streams</h2>
+				<h2>gifs</h2>
 				<div className="ui celled list">{this.renderList()}</div>
 				{this.renderCreateButton()}
 			</div>
@@ -68,7 +68,7 @@ class StreamList extends Component {
 
 const mapStateToProps = state => {
 	return {
-		streams: Object.values(state.streams),
+		gifs: Object.values(state.gifs),
 		currentUserId: state.auth.userId,
 		isSignedIn: state.auth.isSignedIn
 	}
@@ -77,6 +77,6 @@ const mapStateToProps = state => {
 export default connect(
 	mapStateToProps,
 	{
-		fetchStreams
+		fetchGifs
 	}
-)(StreamList)
+)(GifList)

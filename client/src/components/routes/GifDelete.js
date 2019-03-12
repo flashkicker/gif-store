@@ -4,11 +4,11 @@ import { Link } from "react-router-dom"
 
 import history from "../../history"
 import Modal from "../Modal"
-import { fetchStream, deleteStream } from "../../actions"
+import { fetchGif, deleteGif } from "../../actions"
 
-class StreamDelete extends Component {
+class GifDelete extends Component {
 	componentDidMount() {
-		this.props.fetchStream(this.props.match.params.id)
+		this.props.fetchGif(this.props.match.params.id)
 	}
 
 	renderActions() {
@@ -17,7 +17,7 @@ class StreamDelete extends Component {
 			<Fragment>
 				<button
 					onClick={() => {
-						this.props.deleteStream(id)
+						this.props.deleteGif(id)
 					}}
 					className="ui button negative"
 				>
@@ -30,20 +30,20 @@ class StreamDelete extends Component {
 		)
 	}
 
-	renderStreamDetails() {
-		if (!this.props.stream) {
-			return "Are you sure you want to delete this stream?"
+	renderGifDetails() {
+		if (!this.props.gif) {
+			return "Are you sure you want to delete this gif?"
 		}
 
-		return `Are you sure you want to delete ${this.props.stream.title}?`
+		return `Are you sure you want to delete ${this.props.gif.title}?`
 	}
 
 	render() {
 		return (
 			<div>
 				<Modal
-					title="Delete Stream"
-					content={this.renderStreamDetails()}
+					title="Delete Gif"
+					content={this.renderGifDetails()}
 					actions={this.renderActions()}
 					onDismiss={() => {
 						history.push("/")
@@ -56,14 +56,14 @@ class StreamDelete extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		stream: state.streams[ownProps.match.params.id]
+		gif: state.gifs[ownProps.match.params.id]
 	}
 }
 
 export default connect(
 	mapStateToProps,
 	{
-		fetchStream,
-		deleteStream
+		fetchGif,
+		deleteGif
 	}
-)(StreamDelete)
+)(GifDelete)

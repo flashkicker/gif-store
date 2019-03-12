@@ -1,13 +1,13 @@
-import streams from "../apis/streams"
+import gifs from "../apis/gifs"
 import history from '../history'
 import {
 	SIGN_IN,
 	SIGN_OUT,
-	CREATE_STREAM,
-	FETCH_STREAM,
-	FETCH_STREAMS,
-	EDIT_STREAM,
-	DELETE_STREAM
+	CREATE_GIF,
+	FETCH_GIF,
+	EDIT_GIF,
+	DELETE_GIF,
+	FETCH_GIFS
 } from "./types"
 
 export const signIn = userId => {
@@ -23,15 +23,15 @@ export const signOut = () => {
 	}
 }
 
-export const createStream = formValues => {
+export const createGif = formValues => {
 	return async (dispatch, getState) => {
 		//pulling out the userId from the redux store using the getState function
 		const { userId } = getState().auth
-
-		const response = await streams.post("/streams", { ...formValues, userId })
+		console.log(formValues)
+		const response = await gifs.post("/gifs", { ...formValues, userId })
 
 		dispatch({
-			type: CREATE_STREAM,
+			type: CREATE_GIF,
 			payload: response.data
 		})
 
@@ -40,34 +40,34 @@ export const createStream = formValues => {
 	}
 }
 
-export const fetchStreams = () => {
+export const fetchGifs = () => {
 	return async dispatch => {
-		const response = await streams.get("/streams")
+		const response = await gifs.get("/gifs")
 
 		dispatch({
-			type: FETCH_STREAMS,
+			type: FETCH_GIFS,
 			payload: response.data
 		})
 	}
 }
 
-export const fetchStream = id => {
+export const fetchGif = id => {
 	return async dispatch => {
-		const response = await streams.get(`/streams/${id}`)
+		const response = await gifs.get(`/gifs/${id}`)
 
 		dispatch({
-			type: FETCH_STREAM,
+			type: FETCH_GIF,
 			payload: response.data
 		})
 	}
 }
 
-export const editStream = (id, formValues) => {
+export const editGif = (id, formValues) => {
 	return async dispatch => {
-		const response = await streams.patch(`/streams/${id}`, formValues)
+		const response = await gifs.patch(`/gifs/${id}`, formValues)
 
 		dispatch({
-			type: EDIT_STREAM,
+			type: EDIT_GIF,
 			payload: response.data
 		})
 
@@ -75,12 +75,12 @@ export const editStream = (id, formValues) => {
 	}
 }
 
-export const deleteStream = id => {
+export const deleteGif = id => {
 	return async dispatch => {
-		await streams.delete(`/streams/${id}`)
+		await gifs.delete(`/gifs/${id}`)
 
 		dispatch({
-			type: DELETE_STREAM,
+			type: DELETE_GIF,
 			payload: id
 		})
 

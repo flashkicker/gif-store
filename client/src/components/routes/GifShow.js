@@ -1,21 +1,25 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { fetchStream } from "../../actions"
 
-class StreamShow extends Component {
+import { fetchGif } from "../../actions"
+
+class GifShow extends Component {
 	componentDidMount() {
-		this.props.fetchStream(this.props.match.params.id)
+		const { id } = this.props.match.params
+
+		this.props.fetchGif(id)
 	}
 
 	render() {
-		if (!this.props.stream) {
+		if (!this.props.gif) {
 			return <div>Loading...</div>
 		}
 
-		const { title, description } = this.props.stream
+		const { title, description, url } = this.props.gif
 
 		return (
 			<div>
+				<img alt={description} src={url} />
 				<h1>{title}</h1>
 				<h5>{description}</h5>
 			</div>
@@ -24,12 +28,12 @@ class StreamShow extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-	return { stream: state.streams[ownProps.match.params.id] }
+	return { gif: state.gifs[ownProps.match.params.id] }
 }
 
 export default connect(
 	mapStateToProps,
 	{
-		fetchStream
+		fetchGif
 	}
-)(StreamShow)
+)(GifShow)

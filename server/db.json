@@ -1,25 +1,11 @@
 {
-  "streams": [
+  "gifs": [
     {
-      "title": "First",
-      "description": "My stream",
-      "id": 1
-    },
-    {
-      "title": "Second stream",
-      "description": "This one's good",
-      "id": 2
-    },
-    {
-      "title": "Refactored",
-      "description": "Edit form",
-      "id": 5
-    },
-    {
-      "title": "New stream",
-      "description": "where are all the others?",
+      "title": "abcd",
+      "description": "abcd",
+      "url": "https://media.giphy.com/media/AhgCklyyrg8X3kNvKM/giphy.gif",
       "userId": "102026747646429304788",
-      "id": 6
+      "id": 1
     }
   ]
 }

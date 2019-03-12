@@ -1,14 +1,15 @@
 import React, { Component } from "react"
 import { Field, reduxForm } from "redux-form"
+import validator from 'validator'
 
-class StreamForm extends Component {
+class GifForm extends Component {
 	renderError = metaProps => {
 		const { error, touched } = metaProps
 
 		if (touched && error) {
 			return (
 				<div className="ui error message">
-					<div className="header">{error} </div>
+					<div className="header">{error}</div>
 				</div>
 			)
 		}
@@ -43,6 +44,7 @@ class StreamForm extends Component {
 					component={this.renderInput}
 					label="Enter Description"
 				/>
+				<Field name="url" component={this.renderInput} label="Enter URL" />
 				<button className="ui button primary">Submit</button>
 			</form>
 		)
@@ -50,7 +52,7 @@ class StreamForm extends Component {
 }
 
 const validate = formValues => {
-	let errors = {}
+	const errors = {}
 
 	if (!formValues.title) {
 		errors.title = "Please enter a title"
@@ -60,10 +62,14 @@ const validate = formValues => {
 		errors.description = "Please enter a description"
 	}
 
+	if (formValues.url && !validator.isURL(formValues.url)) {
+		errors.url = "Please enter a valid url"
+	}
+
 	return errors
 }
 
 export default reduxForm({
-	form: "streamForm",
+	form: "gifForm",
 	validate: validate
-})(StreamForm)
+})(GifForm)
